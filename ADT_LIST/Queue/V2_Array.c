@@ -12,75 +12,72 @@ typedef struct{
 }Queue;
 
 bool isFull(Queue* q){
-    return q->list.count == MAX;
+    return q->front == (q->rear + 2) % MAX;
 }
 
 bool isEmpty(Queue* q){
-    return q->list.count == 0;
+    return q->front == (q->rear + 1) % MAX;
 }
 
 int front(Queue* q){
-    return !isEmpty(q) ? q->list.item[q->front] : - 1;
+    return !isEmpty(q) ? q->item[q->front] : - 1;
 }
 
 int dequeue(Queue* q){
-    if(!isEmpty(q)){
-        if(q->front == MAX - 1){
-            q->front = (q->front + 1) % MAX;
-        }else{
-            q->front++;
-        }
-        q->list.count--;
+    int flag = -1;
+    if (isEmpty(q)) {
+        printf("The queue is empty.\n");
     }else{
-        printf("The array is empty.\n");
+        int value = q->item[q->front];
+        q->front = (q->front + 1) % MAX;
+        flag = value;
     }
+    
+    return flag;
 }
 
 void enqueue(Queue* q, int value){
-    if(!isFull(q)){
-        if(q->rear == MAX - 1){
-            q->rear = (q->rear + 1) % MAX;
-            q->list.item[(q->rear)] = value;
-        }else if(isEmpty(q)){
-            q->front = MAX - 1;
-            q->rear = 8;
-            q->list.item[++(q->rear)] = value;
-        }else{
-            q->list.item[++(q->rear)] = value;
-        }
-        q->list.count++;
-    }else{
-        printf("The queue is empty.\n");
+    if (isFull(q)) {
+        printf("The queue is full.\n");
     }
+    q->rear = (q->rear + 1) % MAX;
+    q->item[q->rear] = value;
 }
 
 void display(Queue* q){
-    char buffer[256] = "Elem: [";
-    char temp[20];
+    if (isEmpty(q)) {
+        printf("Queue is empty.\n\n");
+    }else{
+        char buffer[256] = "Elem: [";
+        char temp[20];
 
-    int i = q->front, j = 0;
-    while(j < q->list.count){
-        if(j < q->list.count - 1){
-            sprintf(temp, "%d, ", q->list.item[i]);
-        }else{
-            sprintf(temp, "%d]", q->list.item[i]);
+        int count;
+        if (q->rear >= q->front) {
+            count = q->rear - q->front + 1;
+        } else {
+            count = (MAX - q->front) + (q->rear + 1);
         }
-        strcat(buffer, temp);
-        j++;
-        if(i == 9){
+
+        int i = q->front, j = 0;
+        while (j < count) {
+            if (j < count - 1) {
+                sprintf(temp, "%d, ", q->item[i]);
+            } else {
+                sprintf(temp, "%d]", q->item[i]);
+            }
+            strcat(buffer, temp);
             i = (i + 1) % MAX;
-            continue;
+            j++;
         }
-        i++;
+
+        printf("%-50s Count: %d\tFront: %d\tRear: %d\n\n", buffer, count, q->front, q->rear);
     }
-    printf("%-50s Count: %d\tFront: %d\tRear: %d\n\n", buffer, q->list.count, q->front, q->rear);
 }
 
 Queue* initialize(){
     Queue *q = (Queue *)malloc(sizeof(Queue));
-    q->list.count = 0;
-    q->front = -1;
-    q->rear  = -1;
+    q->front = 1;
+    q->rear = 0;
     return q;
 }
 
@@ -98,6 +95,11 @@ int main(){
     printf("Dequeue Array\n");
     dequeue(q);
     display(q);
+
+    enqueue(q, 40);
+    enqueue(q, 50);enqueue(q, 40);
+    enqueue(q, 50);enqueue(q, 40);
+    enqueue(q, 50);
 
     printf("Top Queue List\n");
     int top = front(q);
