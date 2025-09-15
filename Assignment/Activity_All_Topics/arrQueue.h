@@ -81,7 +81,7 @@ void arrQdisplay(Queue* q){
     }
 }
 
-Queue* initialize(){
+Queue* arrQinitialize(){
     Queue *q = (Queue *)malloc(sizeof(Queue));
     q->front = 1;
     q->rear = 0;

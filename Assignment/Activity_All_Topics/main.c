@@ -2,13 +2,15 @@
 #include "arrStack.h"
 #include "arrQueue.h"
 #include "linkStack.h"
+#include "linkQueue.h"
 
 int main(){
     char data; 
     
-    Stack *s = initArrStack(); /*function from Array Stack header file*/
-    STACK *L = initLinkStack(); /*function from Linked List Stack header file*/
-    Queue *q = arrQinitialize(); /*function from Queue header file*/
+    Stack *s = initArrStack();          /*function from Array Stack header file*/
+    STACK *L = initLinkStack();         /*function from Linked List Stack header file*/
+    Queue *q = arrQinitialize();        /*function from Array Queue header file*/
+    QueueL *Q = linkQinitialize();      /*function from  Linked List Queue header file*/
     
     printf("-------------------Array Stack-------------------\n");
 
@@ -98,6 +100,37 @@ int main(){
     }else{
         printf("Is it full? No.\n\n");    
     }
+
+    printf("\n-------------------Link Queue-------------------\n");
+
+    printf("Queue Link\n");
+    linkQueueL(Q, 10);
+    linkQueueL(Q, 20);
+    linkQueueL(Q, 30);
+    linkQueueL(Q, 40);
+    linkQueueL(Q, 50);
+    linkQdisplay(Q);
+
+    printf("Dequeue Link\n");
+    int get1 = deQueueL(Q);
+    if (get1 >= 0) {
+        printf("The dequeued number is: %d\n", get1);
+    }
+    linkQdisplay(Q);
+
+    printf("Top Queue List\n");
+    int top1 = linkQfront(Q);
+    if (top1 >= 0) {
+        printf("The first in Queue is: %d\n", top1); 
+    }
+    linkQdisplay(Q);
+
+    printf("Empty Queue List\n");
+    printf("Is it empty? %s\n\n", linkQisEmpty(Q) ? "Yes" : "No");
+
+    printf("Full Queue List\n");
+    printf("Is it full? %s\n\n", linkQisFull(Q) ? "Yes" : "No");
+
 
     // VirtualHeap VH; CBlist L;
 
