@@ -6,14 +6,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct node {
+typedef struct node1 {
     int data;
-    struct node *next;
-} Node;
+    struct node1 *next;
+} node1;
 
 typedef struct QueueL {
-    Node *front;
-    Node *rear;
+    node1 *front;
+    node1 *rear;
 } QueueL;
 
 bool linkQisFull(QueueL* q) {
@@ -34,7 +34,7 @@ int deQueueL(QueueL* q) {
 
     }else{
         get = q->front->data;
-        Node *temp = q->front;
+        node1 *temp = q->front;
         q->front = q->front->next;
         if (q->front == NULL) q->rear = NULL;
         free(temp);
@@ -44,7 +44,7 @@ int deQueueL(QueueL* q) {
 }
 
 void linkQueueL(QueueL* q, int value) {
-    Node *newNode = (Node *)malloc(sizeof(Node));
+    node1 *newNode = (node1 *)malloc(sizeof(node1));
     if (!newNode) {
         printf("Memory allocation failed.\n");
         return;
@@ -67,7 +67,7 @@ void linkQdisplay(QueueL* q) {
         char buffer[256] = "Elem: Front --> ";
         char temp1[20];
 
-        Node *temp = q->front;
+        node1 *temp = q->front;
         int i = 0;
         while (temp != NULL) {
             if (temp->next != NULL) {
