@@ -151,10 +151,11 @@ int main(){
     display(s); /*function from Stack header file*/
     // displayQueue(Q); /*function from Queue header file*/
 
-    // popUnique(S,data); //given a data, pop the entry
+    printf("Pop if Its Unique.\n");
+    popUnique(s, 15); //given a data, pop the entry
     // dequeueUnique(Q,data); //given a data, dequeue the entry
 
-    // display(s); /*function from Stack header file*/
+    display(s); /*function from Stack header file*/
     // displayQueue(Q); /*function from Queue header file*/
 
 

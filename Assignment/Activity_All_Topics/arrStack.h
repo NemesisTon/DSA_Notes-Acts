@@ -78,6 +78,39 @@ void pushUnique(Stack *s, int data){
     }
 }
 
+void popUnique(Stack *s, int data){
+    if(!isFull(s)){
+        Stack temp;
+        temp.top = -1;
+        int flag = 0;
+
+        int i = 0;
+        while (!isEmpty(s)) {
+            int val = peek(s);
+            if (val == data) {
+                flag = 1;
+            }
+            pop(s);
+            push(&temp, val);
+            i++;
+        }
+
+        while (!isEmpty(&temp)) {
+            int val = peek(&temp);
+            pop(&temp);
+            push(s, val);
+        }
+
+        if (!flag) {
+            pop(s);
+        } else {
+            printf("Not Unique.\n");
+        }
+    }else{
+        printf("The array is full.\n");
+    }
+}
+
 void display(Stack *s) {
     if(!isEmpty(s)){
         char buffer[256] = "Elem: [";
