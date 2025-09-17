@@ -28,11 +28,7 @@ bool isEmpty(Stack *s) {
 }
 
 int peek(Stack *s) {
-    if (isEmpty(s)) {
-        printf("Stack is empty!\n");
-        return -1;
-    }
-    return s->arr[s->top];
+    return (isEmpty(s)) ? -1 : s->arr[s->top];   
 }
 
 void pop(Stack *s) {
@@ -46,6 +42,37 @@ void pop(Stack *s) {
 void push(Stack *s, int value) {
     if(!isFull(s)){
         s->arr[++(s->top)] = value;
+    }else{
+        printf("The array is full.\n");
+    }
+}
+
+void pushUnique(Stack *s, int data){
+    if(!isFull(s)){
+        Stack temp;
+        temp.top = -1;
+        int flag = 0;
+
+        while (!isEmpty(s)) {
+            int val = peek(s);
+            if (val == data) {
+                flag = 1;
+            }
+            pop(s);
+            push(&temp, val);
+        }
+
+        while (!isEmpty(&temp)) {
+            int val = peek(&temp);
+            pop(&temp);
+            push(s, val);
+        }
+
+        if (!flag) {
+            push(s, data);
+        } else {
+            printf("Not Unique.\n");
+        }
     }else{
         printf("The array is full.\n");
     }

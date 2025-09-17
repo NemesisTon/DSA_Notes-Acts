@@ -28,6 +28,14 @@ int main(){
 
     printf("Top element: %d\n", peek(s));
 
+    printf("Empty Stack List\n");
+    int emptyS = isEmpty(s);
+    if(emptyS > 0){
+        printf("Is it empty? Yes.\n\n");    
+    }else{
+        printf("The top in the stack is: %d\n\n", emptyS);
+    }
+/*
     printf("\n-------------------Link Stack-------------------\n");
 
     printf("Push Stack List\n");
@@ -130,22 +138,23 @@ int main(){
 
     printf("Full Queue List\n");
     printf("Is it full? %s\n\n", linkQisFull(Q) ? "Yes" : "No");
-
+*/
 
     // VirtualHeap VH; CBlist L;
 
 
     // /*array and linkedlist*/
-    // pushUnique(S,data); // push if unique
+    printf("Push if Its Unique.\n");
+    pushUnique(s, 5); // push if unique
     // enqueueUnique(Q,data); // enqueue if unique
 
-    // displayStack(S); /*function from Stack header file*/
+    display(s); /*function from Stack header file*/
     // displayQueue(Q); /*function from Queue header file*/
 
     // popUnique(S,data); //given a data, pop the entry
     // dequeueUnique(Q,data); //given a data, dequeue the entry
 
-    // displayStack(S); /*function from Stack header file*/
+    // display(s); /*function from Stack header file*/
     // displayQueue(Q); /*function from Queue header file*/
 
 
