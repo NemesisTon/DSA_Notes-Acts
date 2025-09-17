@@ -28,12 +28,12 @@ int main(){
 
     printf("Top element: %d\n", peek(s));
 
-    printf("Empty Stack List\n");
+    printf("\nEmpty Stack List\n");
     int emptyS = isEmpty(s);
     if(emptyS > 0){
         printf("Is it empty? Yes.\n\n");    
     }else{
-        printf("The top in the stack is: %d\n\n", emptyS);
+        printf("Is it empty? No.\n\n");
     }
 /*
     printf("\n-------------------Link Stack-------------------\n");
@@ -71,7 +71,7 @@ int main(){
     }else{
         printf("Is it full? No.\n\n");    
     }
-
+*/
     printf("\n-------------------Array Queue-------------------\n");
 
     printf("Queue Array\n");
@@ -108,7 +108,7 @@ int main(){
     }else{
         printf("Is it full? No.\n\n");    
     }
-
+/*
     printf("\n-------------------Link Queue-------------------\n");
 
     printf("Queue Link\n");
@@ -142,21 +142,25 @@ int main(){
 
     // VirtualHeap VH; CBlist L;
 
-
+    printf("\n-------------------Array & Linked List-------------------\n");
     // /*array and linkedlist*/
     printf("Push if Its Unique.\n");
-    pushUnique(s, 5); // push if unique
-    // enqueueUnique(Q,data); // enqueue if unique
+    pushUnique(s, 5); 
+    enqueueUnique(q, 5);
 
+    printf("Array ->\t");
     display(s); /*function from Stack header file*/
-    // displayQueue(Q); /*function from Queue header file*/
+    printf("Linked List ->\t");
+    arrQdisplay(q); /*function from Queue header file*/
 
     printf("Pop if Its Unique.\n");
-    popUnique(s, 15); //given a data, pop the entry
-    // dequeueUnique(Q,data); //given a data, dequeue the entry
+    popUnique(s, 15); 
+    dequeueUnique(q, 15); 
 
+    printf("Array ->\t");
     display(s); /*function from Stack header file*/
-    // displayQueue(Q); /*function from Queue header file*/
+    printf("Linked List ->\t");
+    arrQdisplay(q); /*function from Queue header file*/
 
 
     /*cursor-based*/

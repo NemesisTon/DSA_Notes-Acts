@@ -51,6 +51,48 @@ void arrQenqueue(Queue* q, int value){
     }
 }
 
+void dequeueUnique(Queue *q, int data){
+    if (arrQisEmpty(q)) {
+        printf("Queue is empty. Cannot dequeue %d.\n", data);
+    }else{
+        int i = q->front, flag = 0;
+        while (i != (q->rear + 1) % MAX) {
+            if (q->item[i] == data) {
+                flag = 1;
+                printf("Not Unique\n");
+            }
+            i = (i + 1) % MAX;
+        }
+
+        if(!flag){
+            int removed = q->item[q->front];
+            q->front = (q->front + 1) % MAX;
+        }
+    }    
+}
+
+void enqueueUnique(Queue *q, int data){
+    if (arrQisFull(q)) {
+        printf("Queue is full. Cannot enqueue %d.\n", data);
+    }else{
+        int i = q->front, flag = 0;
+        while (i != (q->rear + 1) % MAX) {
+            if (q->item[i] == data) {
+                flag = 1;
+            }
+            i = (i + 1) % MAX;
+        }
+
+        if(!flag){
+            q->rear = (q->rear + 1) % MAX;
+            q->item[q->rear] = data;
+        }else{
+            printf("Not Unique.\n");
+        }
+
+    }
+}
+
 void arrQdisplay(Queue* q){
     if (arrQisEmpty(q)) {
         printf("Queue is empty.\n\n");
