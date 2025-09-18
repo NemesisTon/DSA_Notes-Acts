@@ -21,12 +21,15 @@ int main(){
     List L;
     
     L = initialize(L);
+    printf("List\n");
     L.elem[4] = 0;
     L.elem[3] = 11;
     L.elem[0] = 22;
     L.elem[1] = 33;
     L.elem[2] = 44;
     L.count = 5;
+    display(L);
+    printf("\n\nSorted List\n");
     L = sortList(L);
     display(L);
 
@@ -90,34 +93,29 @@ List initialize(List L){
 List insertPos(List L, int data, int position){
     if(position > L.count){
         printf("Invalid position it should be less than or equal to count.\n");
-        return L;
     }else if(L.count >= MAX){
         printf("The array is full.\n");
-        return L;
-    }
-
-    for(int i = L.count, temp; i >= position; i--){
-        L.elem[i] = L.elem[i - 1];
-        if(position == i){
-            L.elem[i] = data;
+    }else{
+        for(int i = L.count, temp; i >= position; i--){
+            L.elem[i] = L.elem[i - 1];
+            if(position == i){
+                L.elem[i] = data;
+            }
         }
+        L.count++;
     }
-    L.count++;
-
     return L;
 }
 
 List deletePos(List L, int position){
     if(position > L.count){
         printf("Invalid position it should be less than or equal to count.\n");
-        return L;
+    }else{
+        for(int i = position; i < L.count; i++){
+            L.elem[i] = L.elem[i + 1];
+        }
+        L.count--;
     }
-
-    for(int i = position; i < L.count; i++){
-        L.elem[i] = L.elem[i + 1];
-    }
-    L.count--;
-
     return L;
 }
 
@@ -131,25 +129,24 @@ int locate(List L, int data){
 List insertSorted(List L, int data){
     if(L.count >= MAX){
         printf("The count should not be equal or greater than length (10).\n");
-    }
-
-    int pos = 0;
-    for(int i = 0; i < L.count; i++){
-        if(L.elem[i] > data && L.elem[i - 1] < data){
-            pos = i;
-        }else if(data > L.elem[i]){
-            pos = i + 1;
+    }else{
+        int pos = 0;
+        for(int i = 0; i < L.count; i++){
+            if(L.elem[i] > data && L.elem[i - 1] < data){
+                pos = i;
+            }else if(data > L.elem[i]){
+                pos = i + 1;
+            }
         }
-    }
 
-    for(int i = L.count; i >= pos; i--){
-        L.elem[i] = L.elem[i - 1];
-        if(i == pos){
-            L.elem[i] = data;
+        for(int i = L.count; i >= pos; i--){
+            L.elem[i] = L.elem[i - 1];
+            if(i == pos){
+                L.elem[i] = data;
+            }
         }
+        L.count++;
     }
-    L.count++;
-
     return L;
 }
 
@@ -162,10 +159,9 @@ List deleteValue(List L, int data){
     pos--;
     if(pos < 0){
         printf("The value did not exist in the array.\n");
-        return L;
     }
-
     L = deletePos(L, pos);
+
     return L;
 }
 
