@@ -116,15 +116,16 @@ int locate(Eptr L, int data){
 }
 
 int retrieve(Eptr L, int position){
+    int get = 0;
     if(position > L->count){
         printf("The position should be less than or equal to count.");
-        return -1;
+        get = -1;
     }
     
-    int i = position - 1, get = 0;
+    int i = position - 1;
     get = L->elem[i];
 
-    return get;   
+    return get >= 0 ? get : get;   
 }
 
 void insertSorted(Eptr L, int data){
