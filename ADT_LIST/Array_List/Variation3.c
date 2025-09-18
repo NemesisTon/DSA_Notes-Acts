@@ -71,19 +71,17 @@ List initialize(List L){
 List insertPos(List L, int data, int position){
     if(position > L.count){
         printf("Position should be less than or equal to count.\n");
-        return L;
     }else if(L.count >= L.max){
         L = resize(L);
-    }
-
-    for(int i = L.count; i >= position; i--){
-        L.elemPtr[i] = L.elemPtr[i - 1];
-        if(i == position){
-            L.elemPtr[i - 1] = data;
+    }else{
+        for(int i = L.count; i >= position; i--){
+            L.elemPtr[i] = L.elemPtr[i - 1];
+            if(i == position){
+                L.elemPtr[i - 1] = data;
+            }
         }
+        L.count++;
     }
-    L.count++;
-
     return L;
 }
 
@@ -97,14 +95,12 @@ List resize(List L){
 List deletePos(List L, int position){
     if(position > L.count){
         printf("Position should be less than or equal than count.\n");
-        return L;
+    }else{
+        for(int i = position - 1; i < L.count; i++){
+            L.elemPtr[i] = L.elemPtr[i + 1];
+        }
+        L.count--;
     }
-
-    for(int i = position - 1; i < L.count; i++){
-        L.elemPtr[i] = L.elemPtr[i + 1];
-    }
-    L.count--;
-
     return L;
 }
 
