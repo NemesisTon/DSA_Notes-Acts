@@ -57,7 +57,7 @@ int main(){
     printf("\n\n");
 
     printf("4. Retrieve the number in position 1.\n");
-    int get = retrieve(L, 1);
+    int get = retrieve(L, 10);
     if(get > 0){
         printf("In the position 1 the value is %d.\n", get);
         display(L);
@@ -125,7 +125,7 @@ int retrieve(Eptr L, int position){
     int i = position - 1;
     get = L->elem[i];
 
-    return get >= 0 ? get : get;   
+    return get;   
 }
 
 void insertSorted(Eptr L, int data){
