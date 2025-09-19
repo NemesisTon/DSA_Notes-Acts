@@ -34,7 +34,7 @@ int pop(Stack *s){
     if(!isEmpty(s)){
         get = s->items[s->top--];
     }
-    return get >= 0 ? get : -1;
+    return get >= 0 ? get : get;
 }
 
 int peek(Stack *s){
@@ -54,15 +54,16 @@ int top(Stack *s){
 }
 
 void display(Stack* s){
-    if(!isEmpty(s)){
+    if(isEmpty(s)){
         printf("The stack is empty.\n\n");
-    }
-    printf("Elem: [");
-    for(int i = 0; i < s->top; i++){
-        if(i < s->top - 1){
-            printf("%d, ", s->items[i]);
-        }else{
-            printf("%d]", s->items[i]);
+    }else{
+        printf("Elem: [");
+        for(int i = 0; i <= s->top; i++){
+            if(i < s->top){
+                printf("%d, ", s->items[i]);
+            }else{
+                printf("%d]\n\n", s->items[i]);
+            }
         }
     }
 }
@@ -75,7 +76,7 @@ int main(){
 
     int choice, flag = 1;
     while (flag) {
-        printf("\n--- Warehouse Inventory Management System ---\n");
+        printf("--- Warehouse Inventory Management System ---\n");
         printf("1. Push a container\n");
         printf("2. Pop a container\n");
         printf("3. Check if a container exists\n");
@@ -86,16 +87,63 @@ int main(){
 
         switch (choice) {
             case 1:
-                printf("Push operation selected.\n");
+                int value = 0;
+                printf("Enter container ID to push: ");
+                scanf("%d", &value);
+                if(!isFull(&s[0])){
+                    push(&s[0], value);
+                    printf("Container %d pushed successfully.\n", value);
+                }else if(!isFull(&s[1])){
+                    push(&s[1], value);
+                    printf("Container %d pushed successfully.\n", value);
+                }else{
+                    push(&s[2], value);
+                    printf("Container %d pushed successfully.\n", value);
+                }
                 break;
             case 2:
-                printf("Pop operation selected.\n");
+                if(!isFull(&s[0])){
+                    int get = pop(&s[0]);
+                    printf("Container %d popped successfully\n", get);
+                }else if(!isFull(&s[1])){
+                    int get = pop(&s[1]);
+                    printf("Container %d popped successfully\n", get);
+                }else{
+                    int get = pop(&s[2]);
+                    printf("Container %d popped successfully\n", get);
+                }
                 break;
             case 3:
-                printf("Check operation selected.\n");
+                int value1 = 0,  check = 0, getStack = 0;
+                printf("Enter container ID to check: ");
+                scanf("%d", &value1);
+                Stack temp[3];
+                for(int i = 0; i < 3; i++){
+                    temp[i] = s[i];
+                }
+
+                for(int i = 0; i < 3 && check == 0; i++){
+                    int k = temp[i].top;
+                    for(int j = i, a = 0; a < k + 1; a++){
+                        if(value1 == peek(&temp[j])){
+                            check = 1;
+                            getStack = i;
+                        }else{
+                            pop(&temp[j]);
+                        }
+                    }
+                }
+                if(check == 1){
+                    printf("Container %d exist in stack %d\n", value1, getStack + 1);
+                }else{
+                    printf("Container %d did not exist in any stack.\n", value1);
+                }
                 break;
             case 4:
-                printf("Display operation selected.\n");
+                for(int i = 0, a = 1; i < 3; i++, a++){
+                    printf("---Stack %d---\n", a);
+                    display(&s[i]);
+                }
                 break;
             case 5:
                 flag = 0;
@@ -105,6 +153,7 @@ int main(){
                 printf("The number you input is invalid.\n");
                 break;
         }
+        printf("\n");
     }
     return 0;
 }
